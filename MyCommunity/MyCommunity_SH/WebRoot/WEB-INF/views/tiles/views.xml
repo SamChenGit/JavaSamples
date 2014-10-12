@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC 
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN" 
+	"http://struts.apache.org/dtds/tiles-config_2_0.dtd"> 
+<tiles-definitions> 
+    <definition name="template" template="/WEB-INF/views/tiles/main_template.jsp">
+    	<put-attribute name="title"  value="XDA论坛" />
+    	<put-attribute name="top"  value="/WEB-INF/views/tiles/main_header.jsp" />
+    	<put-attribute name="bottom"  value="/WEB-INF/views/tiles/main_footer.jsp" />
+	</definition>
+  	
+	<definition name="index" extends="template">
+		<put-attribute name="title" value="首页：欢迎光临XDA论坛"/> 
+		<put-attribute name="content" value="/WEB-INF/views/index.jsp"/> 
+	</definition>
+	<definition name="forum" extends="template">
+		<put-attribute name="title" value="论坛版块"/> 
+		<put-attribute name="content" value="/WEB-INF/views/forum.jsp"/> 
+	</definition>
+	<definition name="topic" extends="template">
+		<put-attribute name="title" value="论坛主题"/> 
+		<put-attribute name="content" value="/WEB-INF/views/topic.jsp"/> 
+	</definition>
+	<definition name="login" extends="template">
+		<put-attribute name="title" value="论坛登录"/> 
+		<put-attribute name="content" value="/WEB-INF/views/login.jsp"/> 
+	</definition>
+	<definition name="register" extends="template">
+		<put-attribute name="title" value="论坛注册"/> 
+		<put-attribute name="content" value="/WEB-INF/views/register.jsp"/> 
+	</definition>
+	<definition name="personal" extends="template">
+		<put-attribute name="title" value="个人主页"/> 
+		<put-attribute name="content" value="/WEB-INF/views/personal.jsp"/> 
+	</definition>
+	<definition name="create_topic" extends="template">
+		<put-attribute name="title" value="发表主题"/> 
+		<put-attribute name="content" value="/WEB-INF/views/create_topic.jsp"/> 
+	</definition>
+	<definition name="search_result" extends="template">
+		<put-attribute name="title" value="搜索结果"/> 
+		<put-attribute name="content" value="/WEB-INF/views/search_result.jsp"/> 
+	</definition>
+	<definition name="message_receive_list" extends="template">
+		<put-attribute name="title" value="我的收件箱"/> 
+		<put-attribute name="content" value="/WEB-INF/views/message_receive_list.jsp"/> 
+	</definition>
+	<definition name="message_receive_unreaded" extends="template">
+		<put-attribute name="title" value="我的收件箱"/> 
+		<put-attribute name="content" value="/WEB-INF/views/message_receive_unreaded.jsp"/> 
+	</definition>
+	<definition name="message_receive_recycle" extends="template">
+		<put-attribute name="title" value="收件箱-回收站"/> 
+		<put-attribute name="content" value="/WEB-INF/views/message_receive_recycle.jsp"/> 
+	</definition>
+	<definition name="message_receive_detail" extends="template">
+		<put-attribute name="title" value="邮件内容"/> 
+		<put-attribute name="content" value="/WEB-INF/views/message_receive_detail.jsp"/> 
+	</definition>
+	<definition name="message_send_list" extends="template">
+		<put-attribute name="title" value="已发送的邮件"/> 
+		<put-attribute name="content" value="/WEB-INF/views/message_send_list.jsp"/> 
+	</definition>
+	<definition name="message_send_recycle" extends="template">
+		<put-attribute name="title" value="发件箱-回收站"/> 
+		<put-attribute name="content" value="/WEB-INF/views/message_send_recycle.jsp"/> 
+	</definition>
+	<definition name="message_send_draft" extends="template">
+		<put-attribute name="title" value="草稿箱"/> 
+		<put-attribute name="content" value="/WEB-INF/views/message_send_draft.jsp"/> 
+	</definition>
+	<definition name="message_create" extends="template">
+		<put-attribute name="title" value="编写邮件"/> 
+		<put-attribute name="content" value="/WEB-INF/views/message_create.jsp"/> 
+	</definition>
+	
+</tiles-definitions> 

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context-3.0.xsd
+     http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+     
+	<!-- 配置数据源 (dbcp数据源,需要添加"commons-dbcp.jar"包) -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl" />
+		<property name="username" value="system" />
+		<property name="password" value="orcl" />
+	</bean>
+
+	<!-- 配置Hibernate会话工厂 -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.myCommunity.entity.Forum</value>
+				<value>com.myCommunity.entity.Role</value>
+				<value>com.myCommunity.entity.User</value>
+				<value>com.myCommunity.entity.Topic</value>
+				<value>com.myCommunity.entity.Comment</value>
+				<value>com.myCommunity.entity.MessageSending</value>
+				<value>com.myCommunity.entity.MessageReceiving</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<context:component-scan base-package="com.myCommunity.dao.impl,com.myCommunity.biz.impl,com.myCommunity.ui.util" />
+	
+	<!-- 事务管理 -->
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<tx:annotation-driven transaction-manager="txManager" />
+
+</beans>

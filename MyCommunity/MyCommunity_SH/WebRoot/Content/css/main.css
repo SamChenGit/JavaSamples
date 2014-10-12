@@ -1,0 +1,97 @@
+﻿
+#logo {
+    margin:10px 0;
+}
+#logo img {
+    width:180px;
+}
+#footer {
+    text-align:center;
+    margin-bottom:20px;
+}
+.list-group-item {
+    line-height:1.3em;
+}
+.chevron {
+    position:absolute;
+    top:50%;
+}
+.pager-container {
+    margin-top:5px;
+    text-align:right;
+}
+.table {
+    margin-bottom:0;
+}
+.pagination {
+    margin:0;
+}
+.pager-info{
+	display:block;	
+}
+#topic-detail {
+    margin-bottom:20px;
+}
+.table {
+    margin-bottom:0;
+}
+.topic-title {
+    text-align:center;
+}
+a.mail{
+	background: url('images/mail.png') no-repeat 0 -4px;
+	padding-left:28px;
+}
+img.user {
+    width:120px;
+    height:120px;
+}
+.text-center{
+	text-align: center;
+}
+form label.error{
+	padding-top:7px;	/*为了让报错提示文字上下对齐其左方*/
+	color:red;
+}
+.head-image{
+	width: 160px;
+	height: 160px;
+	background-image: url('images/no_photo.jpg');
+}
+
+/*以下为邮件模块样式*/
+#message-menu{
+	margin-left:20px;
+}
+#message-menu ul,#message-menu li{
+	list-style-type: none;
+	padding:5px 10px;
+}
+#message-panel{
+	margin-left: 40px;
+	padding-bottom: 20px;
+}
+#message-panel table.table tr{
+	border-bottom: solid 1px #DDDDDD
+}
+#message-panel table td.readed{
+	background: url('images/readed.png') no-repeat 0 5px;
+	padding-left:35px;
+}
+#message-panel table td.unreaded{
+	background: url('images/unreaded.png') no-repeat 0 5px;
+	padding-left:35px;
+}
+#message-detail{
+	margin:2%;
+	width:96%;
+}
+#message-detail th{
+	width:100px;
+}
+#message-detail tr{
+	border-bottom: solid 1px #dddddd;
+}
+#message-detail td,#message-detail th{
+	padding:5px 10px;
+}

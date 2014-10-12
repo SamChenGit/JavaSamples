@@ -1,0 +1,1 @@
+This is a sample project using SpringMVC3, BootStrap3, Hibernate and Oracle.

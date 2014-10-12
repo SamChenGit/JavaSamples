@@ -1,0 +1,41 @@
+﻿
+#logo {
+    margin:10px 0;
+}
+#logo img {
+    width:180px;
+}
+#footer {
+    text-align:center;
+    margin-bottom:20px;
+}
+.list-group-item {
+    line-height:1.3em;
+}
+.chevron {
+    position:absolute;
+    top:50%;
+}
+.pager-container {
+    margin-top:5px;
+    text-align:right;
+}
+.table {
+    margin-bottom:0;
+}
+.pagination {
+    margin:0;
+}
+#topic-detail {
+    margin-bottom:20px;
+}
+.table {
+    margin-bottom:0;
+}
+.topic-title {
+    text-align:center;
+}
+img.user {
+    width:120px;
+    height:120px;
+}

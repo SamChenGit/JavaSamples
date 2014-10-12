@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd">
+	<tlib-version>1.0</tlib-version>
+	<short-name>pager</short-name>
+	<uri>http://www.myCommunity.com/tags</uri>
+	<tag>
+		<name>pager</name>
+		<tag-class>com.myCommunity.ui.util.PagerTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>curPage</name>
+			<required>true</required>	<!-- 是否必填 -->
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>pageSize</name>
+			<required>false</required>	<!-- 是否必填 -->
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>numbers</name>
+			<required>false</required>	<!-- 是否必填 -->
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>totalRows</name>
+			<required>true</required>	<!-- 是否必填 -->
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>urlFormat</name>
+			<required>true</required>	<!-- 是否必填 -->
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<function>
+		<name>dateTimeFormat</name>
+		<function-class>com.myCommunity.ui.util.DateTimeFormatFunction</function-class>
+		<function-signature>java.lang.String dateTimeFormat(java.util.Date)</function-signature>
+	</function>
+	<function>
+		<name>lenLimit</name>
+		<function-class>com.myCommunity.ui.util.LenLimitFunction</function-class>
+		<function-signature>java.lang.String lenLimit(java.lang.String, java.lang.Integer)</function-signature>
+	</function>
+</taglib>
