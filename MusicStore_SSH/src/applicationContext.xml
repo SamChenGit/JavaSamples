@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns:context="http://www.springframework.org/schema/context"
+     xmlns:aop="http://www.springframework.org/schema/aop"
+     xmlns:tx="http://www.springframework.org/schema/tx"
+     xsi:schemaLocation="
+     http://www.springframework.org/schema/beans 
+     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context-3.0.xsd
+     http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+     http://www.springframework.org/schema/aop 
+     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+     
+     
+    <!-- 配置Hibernate会话 -->
+    <!-- 
+	    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+			<property name="configLocation">
+				<value>classpath:hibernate.cfg.xml</value>
+			</property>
+		</bean> 
+     -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	    <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+	    <property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
+	    <property name="username" value="system"/>
+	    <property name="password" value="orcl"/>
+  	</bean>
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="mappingResources">
+			<list>
+			  <value>com/musicStore/bean/Genre.hbm.xml</value>
+			  <value>com/musicStore/bean/Album.hbm.xml</value>
+			  <value>com/musicStore/bean/User.hbm.xml</value>
+			  <value>com/musicStore/bean/UserRole.hbm.xml</value>
+			  <value>com/musicStore/bean/Order.hbm.xml</value>
+			  <value>com/musicStore/bean/OrderDetail.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<value>org.hibernate.dialect.Oracle10gDialect</value>
+		</property>
+	</bean>
+
+	
+	<!-- 配置声明式事务 -->
+     <bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+     	<property name="sessionFactory" ref="sessionFactory" />
+     </bean>
+     
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+     	<tx:attributes>
+     		<tx:method name="get*" read-only="true"/>
+     		<tx:method name="fetch*" read-only="true"/>
+     		<tx:method name="add*" propagation="REQUIRED"/>
+     		<tx:method name="update*" propagation="REQUIRED"/>
+     		<tx:method name="delete*" propagation="REQUIRED"/>
+     		<tx:method name="register" propagation="REQUIRED"/>
+     	</tx:attributes>
+    </tx:advice>
+
+	<aop:config>
+		<aop:advisor 
+			pointcut="execution(* com.musicStore.biz.*.*(..))"
+			advice-ref="txAdvice"/>
+	</aop:config>
+	
+	<!-- 数据访问层  -->
+	<bean id="genreDao" class="com.musicStore.dao.impl.GenreDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="userDao" class="com.musicStore.dao.impl.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="albumDao" class="com.musicStore.dao.impl.AlbumDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="userRoleDao" class="com.musicStore.dao.impl.UserRoleDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="orderDao" class="com.musicStore.dao.impl.OrderDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="orderDetailDao" class="com.musicStore.dao.impl.OrderDetailDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<!-- 业务逻辑层 -->
+	<bean id="genreBiz" class="com.musicStore.biz.impl.GenreBizImpl">
+		<property name="genreDao" ref="genreDao" />
+	</bean>
+	<bean id="userBiz" class="com.musicStore.biz.impl.UserBizImpl">
+		<property name="userDao" ref="userDao" />
+		<property name="userRoleDao" ref="userRoleDao" />
+	</bean>
+	<bean id="albumBiz" class="com.musicStore.biz.impl.AlbumBizImpl">
+		<property name="albumDao" ref="albumDao" />
+	</bean>
+	<bean id="shoppingCartBiz" class="com.musicStore.biz.impl.ShoppingCartBizImpl">
+		<property name="albumDao" ref="albumDao" />
+	</bean>
+	<bean id="orderBiz" class="com.musicStore.biz.impl.OrderBizImpl">
+		<property name="orderDao" ref="orderDao" />
+		<property name="orderDetailDao" ref="orderDetailDao" />
+		<property name="albumBiz" ref="albumBiz" />
+	</bean>
+	<bean id="chartBiz" class="com.musicStore.biz.impl.ChartBizImpl">
+		<property name="albumDao" ref="albumDao" />
+		<property name="orderDetailDao" ref="orderDetailDao" />
+	</bean>
+	
+	<!-- Struts2 Action -->
+	<bean id="genreListSubAction" class="com.musicStore.action.GenreListSubAction" scope="prototype">
+		<property name="genreBiz" ref="genreBiz" />
+	</bean>
+	<bean id="albumAction" class="com.musicStore.action.AlbumAction" scope="prototype">
+		<property name="albumBiz" ref="albumBiz" />
+	</bean>
+	<bean id="userAction" class="com.musicStore.action.UserAction" scope="prototype">
+		<property name="userBiz" ref="userBiz" />
+	</bean>
+	<bean id="shoppingCartAction" class="com.musicStore.action.ShoppingCartAction" scope="prototype">
+		<property name="shoppingCartBiz" ref="shoppingCartBiz" />
+	</bean>
+	<bean id="adminAlbumAction" class="com.musicStore.action.AdminAlbumAction" scope="prototype">
+		<property name="albumBiz" ref="albumBiz" />
+		<property name="genreBiz" ref="genreBiz" />
+	</bean>
+	<bean id="orderConfirmAction" class="com.musicStore.action.OrderConfirmAction" scope="prototype">
+		<property name="albumBiz" ref="albumBiz" />
+		<property name="orderBiz" ref="orderBiz" />
+	</bean>
+	<bean id="adminOrderAction" class="com.musicStore.action.AdminOrderAction" scope="prototype">
+		<property name="orderBiz" ref="orderBiz" />
+	</bean>
+	
+	<bean id="searchAutoCompleteAction" class="com.musicStore.action.SearchAutoCompleteAction" scope="prototype">
+		<property name="albumBiz" ref="albumBiz" />
+	</bean>
+	<bean id="chartAction" class="com.musicStore.action.ChartAction" scope="prototype">
+		<property name="chartBiz" ref="chartBiz" />
+	</bean>
+	
+	<bean id="frontTipsAction" class="com.musicStore.action.FrontTipsAction"></bean>
+	
+	<!-- 自定Spring AOP 通知记录业务方法执行日志 
+	<bean id="bizLogAdvice" class="com.musicStore.aop.BizLogAdvice" />
+	<aop:config>
+		<aop:aspect ref="bizLogAdvice">
+	   		<aop:pointcut expression="execution(* com.musicStore.biz.impl.*.*(..))" id="pc"/>
+	   		<aop:around method="doAround" pointcut-ref="pc" />
+	   	</aop:aspect>
+	</aop:config>
+	-->
+
+	<!-- 以下为使用Quartz任务调度生成库存提示文件 -->	
+	<bean id="albumStockCheckingJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass"  value="com.musicStore.action.AlbumStockCheckingJob" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="albumBiz" value-ref="albumBiz" />
+				<entry key="stockLine" value="20" />
+			</map>
+		</property>
+	</bean>
+	<bean id="albumSalesQtyCheckingJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass"  value="com.musicStore.action.AlbumSalesQtyCheckingJob" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="albumBiz" value-ref="albumBiz" />
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="albumStockCheckingTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="albumStockCheckingJob" />
+		<property name="cronExpression" value="0 31 14 * * ?" />
+	</bean>
+	
+	<bean id="albumSalesQtyCheckingTrigger" 
+			class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="albumSalesQtyCheckingJob" />
+		<property name="cronExpression" value="0 31 14 * * ?" />
+	</bean>
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="albumStockCheckingTrigger"/>
+				<ref bean="albumSalesQtyCheckingTrigger"/>  
+			</list>
+		</property>
+	</bean>
+	
+</beans>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping
+	package="com.musicStore.bean">
+
+	<class name="Genre" table="Genre">
+		<id name="id">
+			<generator class="sequence">
+				<param name="sequence">seq_music_genre</param>
+			</generator>
+		</id>
+		<property name="name" />
+		<property name="description" />
+	</class>
+
+</hibernate-mapping>

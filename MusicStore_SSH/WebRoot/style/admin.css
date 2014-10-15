@@ -1,0 +1,151 @@
+/* 归一 */
+* {
+	margin: 0;
+	padding: 0;
+}
+input {
+	vertical-align: middle;
+}
+ul {
+	list-style-type: none;
+}
+body {
+	background-color: #F3F3F3;
+	color: #333;
+	font: 13px/20px "微软雅黑", Arial;
+}
+.clearBoth{
+	clear:both;
+}
+
+/* 页面 */
+#wrapper {
+	width: 950px;
+	margin: 20px auto;
+}
+#header-logo img{
+	width:200px;
+	height:50px;
+	border-style:none;
+}
+/* header */
+#header-title {
+	margin-top: 10px;
+	background-color: #4C4C4C;
+	height: 24px;
+	color: #FFF;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 24px;
+	text-align:center;
+	padding: 3px 0 3px 30px;
+}
+#header-nav {
+	margin-top: 10px;
+	background-color: #4C4C4C;
+	height: 30px;
+	color: #FFF;
+	padding-left: 20px;
+}
+#header-nav h3{
+	height:30px;
+	float:left;
+	color: #FFF;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 30px;
+	text-align:center;
+	width:120px;
+}
+#header-nav li {
+	background-color:#FF020C;
+	float: left;
+	width: 100px;
+	margin-left:20px;
+}
+#header-nav li a {
+	display: block;
+	line-height: 30px;
+	color: #FFF;
+	font-size: 16px;
+	font-weight: bold;
+	text-decoration: none;
+	text-align: center;
+}
+
+/* footer */
+#footer {
+	margin-top: 10px;
+}
+#footer-contactUs {
+	background-color: #FFF;
+	margin-top: 10px;
+	height: 70px;
+	padding-top: 10px;
+	text-align: center;
+}
+
+/* content */
+#content {
+	margin-top: 10px;
+}
+#content-title{
+	background-color: #FFF;
+	height:30px;
+}
+#content-title h3{
+	padding-left:50px;
+	font-size:16px;
+	line-height:30px;
+}
+#content-main{
+	margin-top:10px;
+	background-color: #FFF;
+	padding: 20px 20px 20px 20px;
+	line-height:24px;
+}
+#content-main hr{
+	margin:10px 0px 10px 0px;
+}
+/*后台唱片列表*/
+#album-list{
+	width:820px;
+	margin-left:30px;
+}
+#album-list th, #album-list td{
+	background-color:#F5F5F5;
+	text-align:center;
+}
+#order-list td.pager{
+	padding-left:520px;
+}
+/*订单头信息列表*/
+#order-list{
+	width:820px;
+	margin-left:30px;
+}
+#order-list th, #order-list td{
+	background-color:#F5F5F5;
+	padding-left:10px;
+}
+
+ul.errorMessage{
+	display:inline;
+	list-style-type: none;
+}
+ul.errorMessage li{
+	display:inline;
+	color:red;
+}
+label.error{
+	color:red;
+}
+/*后台用户列表*/
+#user-list{
+	width:820px;
+	margin-left:30px;
+}
+#user-list th, #user-list td{
+	background-color:#F5F5F5;
+	text-align:center;
+}

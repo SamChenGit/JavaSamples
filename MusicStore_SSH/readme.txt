@@ -1,0 +1,1 @@
+This is a sample project using Hibernate3,Struts2, Spring3 and Oracle.

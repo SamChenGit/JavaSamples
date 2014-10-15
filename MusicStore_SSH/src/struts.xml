@@ -1,0 +1,150 @@
+
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+          
+<struts>
+	<constant name="struts.custom.i18n.encoding" value="UTF-8" />
+
+    <package name="default" namespace="/" extends="struts-default">
+    	<!-- 定义拦截器 -->
+    	<interceptors>
+    		<!-- 订单确认拦截器 -->
+            <interceptor name="orderConfirmInterceptor" class="com.musicStore.interceptor.OrderConfirmInterceptor" />
+            <interceptor-stack name="orderStack">
+                <interceptor-ref name="defaultStack" />
+                <interceptor-ref name="orderConfirmInterceptor" />
+            </interceptor-stack>
+        
+        </interceptors>
+        <!-- 定义全局视图 -->
+       	<global-results>
+       		<result name="login">/login.jsp</result>
+       	</global-results> 
+    	
+    	<action name="genreSubList" class="genreListSubAction" >
+    		<result name="success">/shared/front_sidebar.jsp</result>
+    	</action>
+    	
+        <action name="index" class="albumAction" method="index">
+            <result name="success">/index.jsp</result>
+        </action>
+        
+        <action name="album" class="albumAction" method="album">
+            <result name="success">/album.jsp</result>
+        </action>
+        
+        <action name="albumList" class="albumAction" method="albumList">
+            <result name="success">/album_list.jsp</result>
+        </action>
+        
+        <action name="login" class="userAction" method="login">
+            <result name="success" type="redirect">/index</result>
+            <result name="input">/login.jsp</result>
+            <result name="error">/login.jsp</result>
+        </action>
+       
+       	<action name="register" class="userAction" method="register">
+       		<result name="success" type="redirect">/login.jsp</result>
+       		<result name="error">/register.jsp</result>
+       		<result name="input">/register.jsp</result>
+       	</action>
+		
+		<action name="checkUsernameNotDuplicated" class="userAction" method="checkUsernameNotDuplicated">
+			<result name="success" type="plainText"></result>
+		</action>
+		
+		<action name="shoppingCart" class="shoppingCartAction" method="shoppingCart">
+			<result name="success">/cart.jsp</result>
+		</action>
+		<action name="addAlbumToShoppingCart" class="shoppingCartAction" method="addAlbumToShoppingCart">
+			<result name="success">/cart.jsp</result>
+		</action>
+		<action name="removeAlbumFromShoppingCart" class="shoppingCartAction" method="removeAlbumFromShoppingCart">
+			<result name="success">/cart.jsp</result>
+		</action>
+		
+		<action name="orderConfirm" class="orderConfirmAction" method="orderConfirm">
+			<interceptor-ref name="orderStack" />
+			<result name="success">/order/order_confirm.jsp</result>
+		</action>
+		<action name="orderSave" class="orderConfirmAction" method="orderSave">
+			<interceptor-ref name="orderStack" />
+			<result name="success" type="redirectAction">orderSuccessTips</result>
+		</action>
+		<action name="orderSuccessTips" class="frontTipsAction">
+			<param name="url">index</param>
+			<param name="message">订单已成功提交</param>
+			<param name="seconds">5</param>
+			<result name="success">/frontTips.jsp</result>
+		</action>
+    </package>
+    
+    <package name="admin" namespace="/admin" extends="struts-default">
+    	<!-- 定义拦截器 -->
+    	<interceptors>
+    		<!-- 订单确认拦截器 -->
+            <interceptor name="adminAccessInterceptor" class="com.musicStore.interceptor.AdminAccessInterceptor" />
+            <interceptor-stack name="adminStack">
+                <interceptor-ref name="defaultStack" />
+                <interceptor-ref name="adminAccessInterceptor" />
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="adminStack" />
+        <!-- 定义全局视图 -->
+       	<global-results>
+       		<result name="login" type="redirect">/login.jsp</result>
+       	</global-results> 
+    	
+    	<action name="index">
+    		<result name="success">/admin/index.jsp</result>
+    	</action>
+    	<action name="albumManagement" class="adminAlbumAction" method="albumManagement">
+    		<result name="success">/admin/album_management.jsp</result>
+    	</action>
+    	<action name="albumEdit" class="adminAlbumAction" method="albumEdit">
+    		<result name="success">/admin/album_edit.jsp</result>
+    	</action>
+    	<action name="albumSave" class="adminAlbumAction" method="albumSave">
+    		<result name="input" type="chain">albumEdit</result>
+    		<result name="success" type="redirect">/admin/albumManagement?genreId=${album.genre.id}</result>
+    	</action>
+    	<action name="orderManagement" class="adminOrderAction" method="orderManagement">
+    		<result name="success">/admin/order_management.jsp</result>
+    	</action>
+    	<action name="setOrderDeliveried" class="adminOrderAction" method="setOrderDeliveried">
+    		<result name="success" type="redirect">/admin/orderManagement</result>
+    	</action>
+    	<action name="orderDetail" class="adminOrderAction" method="orderDetail">
+    		<result name="success">/admin/order_detail.jsp</result>
+    	</action>
+    </package>
+    
+    <package name="ajax" namespace="/json" extends="json-default">
+        <action name="searchAutoComplete" class="searchAutoCompleteAction">
+            <result type="json">
+            	<param name="excludeProperties">.*hibernateLazyInitializer</param>
+            </result>
+        </action>
+        <action name="albumListInJSON" class="albumAction" method="albumListInJSON">
+        	<result type="json">
+        		<param name="excludeProperties">.*hibernateLazyInitializer</param>
+        	</result>
+        </action>
+    </package>
+    
+    <package name="chart" namespace="/chart" extends="jfreechart-default">
+	  	<action name="albumChart" class="chartAction" method="genreAlbumsChart">
+		   	<result name="success" type="chart">  
+		          <param name="height">400</param>   
+		           <param name="width">700</param>   
+		   	</result>
+	  	</action>
+	  	<action name="salesChart" class="chartAction" method="genreOrderSalesDetailChart">
+		   	<result name="success" type="chart">  
+		          <param name="height">400</param>   
+		           <param name="width">700</param>   
+		   	</result>
+	  	</action>
+ </package>
+</struts>

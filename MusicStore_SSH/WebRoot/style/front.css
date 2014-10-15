@@ -1,0 +1,278 @@
+/* 归一 */
+* {
+	margin: 0;
+	padding: 0;
+}
+input {
+	vertical-align: middle;
+}
+ul {
+	list-style-type: none;
+}
+body {
+	background-color: #F3F3F3;
+	color: #333;
+	font: 13px/ 20px "微软雅黑", Arial;
+}
+.clearBoth{
+	clear:both;
+}
+
+/* 页面 */
+#wrapper {
+	width: 950px;
+	margin: 20px auto;
+}
+
+/* header */
+#header-logo {
+	float: left;
+}
+#header-logo img{
+	width:200px;
+	height:50px;
+	border-style:none;
+}
+#header-login {
+	margin-top: 30px;
+	float: right;
+	width: 120px;
+}
+#header-login a {
+	text-decoration: none;
+	color: #333;
+}
+#header-search {
+	margin-top: 10px;
+	background-color: #4C4C4C;
+	height: 24px;
+	color: #FFF;
+	padding: 3px 0 3px 720px;
+}
+#keyword {
+	color: #999999;
+	width: 150px;
+	height: 24px;
+	line-height: 24px;
+	border: 0;
+	padding: 0;
+	margin: 0;
+}
+#btnSearch {
+	background: url(images/buttonBg.png) right 0;
+	width: 50px;
+	height: 24px;
+	border: none;
+	padding: 0;
+}
+#header-nav {
+	background-color: #FF020C;
+	height: 30px;
+	color: #FFF;
+	padding-left: 20px;
+}
+#header-nav li {
+	float: left;
+	width: 80px;
+}
+#header-nav li a {
+	display: block;
+	line-height: 30px;
+	color: #FFF;
+	font-size: 16px;
+	font-weight: bold;
+	text-decoration: none;
+	text-align: center;
+}
+#welcome{
+	float:right;
+	line-height:30px;
+	font-size:14px;
+	font-weight:bold;
+	margin-right:50px;
+}
+
+/* footer */
+#footer {
+	margin-top: 10px;
+}
+#footer-contactUs {
+	background-color: #FFF;
+	margin-top: 10px;
+	height: 70px;
+	padding-top: 10px;
+	text-align: center;
+}
+
+/* content */
+#content {
+	margin-top: 10px;
+}
+
+/* content侧栏导航 */
+#sidebar {
+	background-color: #FFF;
+	width: 200px;
+	float: left;
+	min-height: 100px;
+	padding: 15px 10px 20px 10px;
+}
+#sidebar h3 {
+	background: url(images/listIconBig.png) 0 center no-repeat;
+	padding-left: 30px;
+	height: 30px;
+	line-height: 30px;
+}
+ul.categories {
+	margin-top: 10px;
+}
+ul.categories li a {
+	display: block;
+	text-decoration: none;
+	height: 38px;
+	line-height: 38px;
+	background: #F5F5F5 url(images/listIconSmall.gif) 10px center no-repeat;
+	border-bottom: solid 2px #FFF;
+	padding-left: 40px;
+	color: #333
+}
+ul.categories li a.even {
+	background-color: #F9F9F9;
+}
+
+/* content主内容区 */
+#main {
+	float: left;
+	background-color: #FFF;
+	width: 700px;
+	margin-left: 10px;
+	min-height: 100px;
+	padding: 16px 10px 20px 10px;
+}
+
+/* albums列表*/
+#main-title{
+	background: url(images/listIconBig.png) 0 center no-repeat;
+	padding-left: 30px;
+	height: 30px;
+	line-height: 30px;
+	margin-bottom:10px;
+}
+.albumItem {
+	margin-bottom: 20px;
+	background-color: #F9F9F9;
+	padding: 10px 20px;
+}
+.albumItem-image{
+	padding-right:10px;
+}
+.albumItem-image img {
+	width: 100px;
+}
+.albumItem-title{
+	width: 520px;
+}
+.albumItem-title a{
+	text-decoration:none;
+	font-size:15px;
+	font-weight:bold;
+}
+.albumItem-artist,.albumItem-price {
+	width: 260px;
+}
+.albumItem-desc {
+	width: 520px;
+	margin: 0 20px;
+}
+
+/* album 详情 */
+#albumDetail{
+}
+#albumDetail-image img{
+	height:160px;
+}
+#albumDetail-title{
+	font-size:16px;
+	font-weight:bold;
+}
+.albumDetail-label{
+	width:80px;
+	padding-left:10px;
+	text-align:left;
+	font-weight:bold;
+}
+.albumDetail-label.center{
+	text-align:center;
+}
+
+/* index.jsp 的热销唱片 */
+#hotAlbums{
+	padding-left:16px;
+}
+dl.hotAlbumsItem img{
+	width:180px;
+	height:180px;
+	border:solid 2px #F3F3F3;
+}
+dl.hotAlbumsItem{
+	float:left;
+	height:200px;
+	width:184px;
+	margin:10px 20px;
+}
+dl.hotAlbumsItem dd{
+	text-align:center;
+	font-weight:bold;
+	font-size:15px;
+}
+
+/* 登录 */
+#loginForm table{
+	margin-left:30px;
+	line-height:28px;
+}
+#loginForm table input.txt{
+	font-size:16px;
+	line-height:20px;
+}
+label.error{
+	color:red;
+}
+ul.errorMessage{
+	display:inline;
+	list-style-type: none;
+}
+ul.errorMessage li{
+	display:inline;
+	color:red;
+}
+
+/* 注册 */
+#loginForm table{
+	margin-left:30px;
+	line-height:28px;
+}
+#loginForm table input.txt{
+	font-size:16px;
+	line-height:20px;
+}
+label.error{
+	color:red;
+}
+
+/* 购物车 */
+#shoppingCart{
+	width:620px;
+	margin-left:30px;
+}
+#shoppingCart tr{
+	background-color:#F5F5F5;
+	text-align:center;
+}
+#orderSubmit{
+	margin:10px 50px 0 30px;
+}
+#nullCartTips{
+	display:block;
+	margin-left:30px;
+}
