@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping 
+	package="com.codeLibrary.entity">
+
+	<class name="CodeInfo" table="CodeInfo">
+		<id name="id">
+			<generator class="native"/>
+		</id>
+		<property name="title"/>
+		<property name="keys"/>
+		<property name="content"/>
+		<property name="points"/>
+		<many-to-one name="category" column="CategoryId" class="Category" lazy="false" fetch="join" />
+    </class>
+
+</hibernate-mapping>

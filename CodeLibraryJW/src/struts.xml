@@ -1,0 +1,40 @@
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="default" extends="json-default">
+        <action name="category_*" class="categoryAction" method="{1}">
+            <result name="list_success">category.jsp</result>
+            <result name="save_success" type="redirect">category_list</result>
+            <result name="input" type="chain">category_list</result>
+        </action>
+        <action name="resource_*" class="resourceAction" method="{1}">
+        	<result name="list_success">resource.jsp</result>
+        	<result name="save_success" type="redirect">resource_list?codeInfoId=${resource.codeInfo.id}</result>
+        	<result name="input">resource.jsp</result>	<!-- 有问题的地方 -->
+        </action>
+        <action name="index" class="codeInfoAction" method="index">
+            <result name="success">index.jsp</result>
+        </action>
+        <action name="_codeInfo_*" class="codeInfoAction" method="{1}">
+            <result name="list_success">_codeInfo_list.jsp</result>
+            <result name="detail_success">_codeInfo_detail.jsp</result>
+            <result name="edit_success">_codeInfo_edit.jsp</result>
+            <result name="save_completed" type="json" />
+            <result name="delete_completed" type="json" />
+        </action>
+        
+        <action name="download" class="downloadAction">
+            <!-- 初始文件名 -->
+            <param name="fileName">resource</param>
+            <result name="success" type="stream">
+                <param name="contentType">application/octet-stream</param>
+                <param name="inputName">inputStream</param>
+                <!-- 使用经过转码的文件名作为下载文件名，downloadFileName属性对应action类中的方法 getDownloadFileName() -->
+                <param name="contentDisposition">attachment;filename="${downloadFileName}"</param>
+                <param name="bufferSize">4096</param>
+            </result>
+        </action>
+    </package>
+
+</struts>

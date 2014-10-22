@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="
+     http://www.springframework.org/schema/beans 
+     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- 配置数据源 (dbcp数据源,需要添加"commons-dbcp.jar"包) -->
+	<bean id="dataSource" 
+		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	        <property name="driverClassName" value="org.sqlite.JDBC"/>
+	        <property name="url" value="jdbc:sqlite:D:/CodeLibraryServer/Database/CodeLibraryDb"/>
+	        <property name="username" value=""/>
+	        <property name="password" value=""/>
+	</bean>
+	 <!-- 配置Hibernate会话工厂 -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mappingResources">
+            <list>
+              <value>com/codeLibrary/entity/Category.hbm.xml</value>
+              <value>com/codeLibrary/entity/CodeInfo.hbm.xml</value>
+              <value>com/codeLibrary/entity/Resource.hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+			<props>
+		    	<prop key="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</prop>
+		        <prop key="hibernate.show_sql">false</prop>
+			</props>
+		</property>
+    </bean>
+    
+    <!-- DAO -->
+    <bean id="categoryDao" class="com.codeLibrary.dao.sqlite.CategoryDaoImpl">
+    	<property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <bean id="codeInfoDao" class="com.codeLibrary.dao.sqlite.CodeInfoDaoImpl">
+    	<property name="sessionFactory" ref="sessionFactory" />
+    	<property name="categoryDao" ref="categoryDao" />
+    </bean>
+    <bean id="resourceDao" class="com.codeLibrary.dao.sqlite.ResourceDaoImpl">
+    	<property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <!-- BIZ -->
+	<bean id="categoryBiz" class="com.codeLibrary.biz.impl.CategoryBizImpl">
+    	<property name="categoryDao" ref="categoryDao" />
+    </bean>
+    <bean id="codeInfoBiz" class="com.codeLibrary.biz.impl.CodeInfoBizImpl">
+    	<property name="codeInfoDao" ref="codeInfoDao" />
+    </bean>
+    <bean id="resourceBiz" class="com.codeLibrary.biz.impl.ResourceBizImpl">
+    	<property name="resourceDao" ref="resourceDao" />
+    </bean>
+    
+    <!-- ACTION -->
+    <bean id="categoryAction" class="com.codeLibrary.action.CategoryAction" scope="prototype">
+    	<property name="categoryBiz" ref="categoryBiz" />
+    </bean>
+    <bean id="codeInfoAction" class="com.codeLibrary.action.CodeInfoAction" scope="prototype">
+    	<property name="categoryBiz" ref="categoryBiz" />
+    	<property name="codeInfoBiz" ref="codeInfoBiz" />
+    	<property name="resourceBiz" ref="resourceBiz" />
+    </bean>
+    <bean id="resourceAction" class="com.codeLibrary.action.ResourceAction" scope="prototype">
+    	<property name="codeInfoBiz" ref="codeInfoBiz" />
+    	<property name="resourceBiz" ref="resourceBiz" />
+    </bean>
+    <bean id="downloadAction" class="com.codeLibrary.action.DownloadResourceAction" scope="prototype">
+    	<property name="resourceBiz" ref="resourceBiz" />
+    </bean>
+</beans>

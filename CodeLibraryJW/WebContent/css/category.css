@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+#gridPanel{
+	margin:10px;
+	padding:10px;
+	width:600px;
+	float:left;
+	border:solid 1px #CCC;
+}
+#formPanel{
+	margin:10px;
+	padding:10px;
+	width:400px;
+	float:left;
+	border:solid 1px #CCC;
+}
+
